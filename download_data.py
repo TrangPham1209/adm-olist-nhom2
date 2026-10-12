@@ -25,3 +25,8 @@ missing = [n for n in NEED if n not in have]
 print('Đã có:', sorted(have & set(NEED)))
 if missing: print('THIẾU:', missing); sys.exit(1)
 print('ĐÃ HOÀN THÀNH — đủ 8 file CSV trong data/')
+
+# Kiểm tra nhanh dữ liệu đã đúng chưa:
+import pandas as pd
+o = pd.read_csv('data/olist_orders_dataset.csv'); i = pd.read_csv('data/olist_order_items_dataset.csv')
+print(len(o), len(i), o.order_status.value_counts().to_dict())
