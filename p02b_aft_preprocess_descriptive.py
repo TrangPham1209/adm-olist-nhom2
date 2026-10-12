@@ -1,4 +1,4 @@
-# ===== p01b — DESCRIPTIVE ANALYSIS (mục 2.3) — CHẠY ĐỘC LẬP =====
+# ===== p02b — DESCRIPTIVE ANALYSIS (mục 2.3) — CHẠY ĐỘC LẬP =====
 # Dùng khi muốn chạy riêng phần phân tích mô tả (View 1/2/3, KPI, thời gian, địa lý, category, logistics, payment, seller, insight)
 # mà KHÔNG chạy lại toàn bộ tiền xử lý. Đọc bảng đã tiền xử lý do p01_preprocess.py xuất ra: preprocess_out/df_delivered.pkl
 #
