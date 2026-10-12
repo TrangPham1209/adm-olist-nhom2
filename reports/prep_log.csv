@@ -1,8 +1,0 @@
-﻿Bước,Số dòng,Ghi chú
-0. Join thô orders+items+payments+reviews,118310,"bị fan-out — chỉ để so sánh, KHÔNG dùng"
-1. Orders ⋈ Items ⋈ Customer ⋈ Seller ⋈ Product (đúng grain),112650,
-2. Chỉ giữ đơn delivered,110197,
-3. Gộp payment (SUM) + khử trùng review (giữ mới nhất),110197,không đổi số dòng => hết fan-out
-4. Bỏ dòng thiếu ngày giao,110189,
-"5. Loại outlier delivery_days ∉ [0,200]",110187,
-6. Chuẩn hoá text + impute review_score (median),110187,
