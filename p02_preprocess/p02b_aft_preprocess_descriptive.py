@@ -1,4 +1,4 @@
-# ===== p01b — DESCRIPTIVE ANALYSIS (mục 2.3) — CHẠY ĐỘC LẬP =====
+# ===== p02b — DESCRIPTIVE ANALYSIS (mục 2.3) — CHẠY ĐỘC LẬP =====
 # Dùng khi muốn chạy riêng phần phân tích mô tả (View 1/2/3, KPI, thời gian, địa lý, category, logistics, payment, seller, insight)
 # mà KHÔNG chạy lại toàn bộ tiền xử lý. Đọc bảng đã tiền xử lý do p01_preprocess.py xuất ra: preprocess_out/df_delivered.pkl
 #
@@ -17,7 +17,7 @@ import matplotlib; matplotlib.use('Agg')
 import pandas as pd
 
 # ---------- Nạp bảng ĐÃ tiền xử lý (đúng grain: 1 dòng = 1 order item) ----------
-_pkl, _csv = OUT_DIR / 'df_delivered.pkl', OUT_DIR / 'olist_preprocessed.csv'
+_pkl, _csv = OUT_DIR / 'df_delivered.pkl', OUT_DIR / 'olist_preprocessed_completed.csv'
 if _pkl.exists():
     df_delivered = pd.read_pickle(_pkl)
 elif _csv.exists():
