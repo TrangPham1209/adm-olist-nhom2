@@ -1,9 +1,0 @@
-Insight 1: [Basket thưa] 90.0% đơn chỉ có 1 sản phẩm (trung bình 1.14 sản phẩm/đơn) -> mining theo order_id không khả thi, chuyển sang mức Seller.
-Insight 2: [Thời vụ] Tháng cao điểm là 2017-11 với 7288 đơn; tăng trưởng MoM cao nhất 120.3% (2017-02).
-Insight 3: [Địa lý] Bang đứng đầu chiếm 59.6% số seller (top-3 chiếm 78.8%); giao khác bang mất 15.0 ngày so với 7.9 ngày khi cùng bang.
-Insight 4: [Danh mục] 18/72 category tạo ra 80% GMV (Pareto).
-Insight 5: [Logistics -> review] Đơn trễ có review TB 2.62 so với 4.30 khi đúng hẹn (chênh 1.68 điểm, Mann-Whitney p = 0.0e+00).
-Insight 6: [Tập trung seller] Gini GMV = 0.79; top 10% seller chiếm 67.1% GMV; 58.4% seller có dưới 10 đơn.
-Insight 7: [Quy mô vs chất lượng] Spearman(số đơn, review) = -0.11 -> quy mô gần như không đảm bảo chất lượng.
-Insight 8: [Nhãn Performance] Xem trước: Good = 69.8%, NeedsSupport = 30.2% -> lớp tương đối cân bằng.
-Insight 9: [Phân phối feature] Các feature lệch mạnh (|skew| > 1): ['n_orders', 'gmv', 'avg_price', 'n_categories', 'late_rate', 'avg_delivery_days', 'avg_review'] -> dùng log-transform và qcut.
