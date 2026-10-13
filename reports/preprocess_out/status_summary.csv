@@ -1,0 +1,8 @@
+﻿status_group,order_status,n_orders,n_items,gmv
+Completed,delivered,96468,110187,13219874.040000001
+Failed,canceled,461,542,95235.27
+Failed,unavailable,6,7,2007.69
+In progress,approved,2,3,209.60000000000002
+In progress,invoiced,312,359,61526.37
+In progress,processing,301,357,60439.22
+In progress,shipped,1106,1185,150727.44
