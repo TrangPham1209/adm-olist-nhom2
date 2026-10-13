@@ -14,10 +14,10 @@
 ## 2. Cấu trúc thư mục cần có
 
 ```
-final/
+**final_code**/
 ├── data/                      # 8 file CSV Olist
-├── p01_preprocess.py          # tiền xử lý (+ phần Descriptive 2.3.x)
-├── p01b_descriptive.py        # (tuỳ chọn) chạy riêng phần mô tả
+├── p02_preprocess.py          # tiền xử lý (+ phần Descriptive 2.3.x)
+├── p02b_descriptive.py        # (tuỳ chọn) chạy riêng phần mô tả
 ├── preprocess_out/            # (sinh ra) df_delivered.pkl, prep_log.csv, missing_before_after.csv ...
 └── preprocess_figs/           # (sinh ra) prep_overview.png và 02_*.png
 ```
@@ -25,11 +25,11 @@ final/
 
 Chạy tại thư mục `final/`. Chạy **cả file** `.py`, không chọn một đoạn rồi bấm Run Code (nếu không sẽ lỗi `NameError: df_delivered`).
 
-**Bước 1 – Có dữ liệu trong `data/`.** Dùng CSV Olist, hoặc tải bằng `python download_data.py`.
+**Bước 1 – Có dữ liệu trong `data/`.** Dùng CSV Olist.
 
 **Bước 2 – Tiền xử lý + EDA, sinh hình và dữ liệu sạch:**
 ```
-python p01_preprocess.py
+python p02_preprocess.py
 ```
 Kết quả: `preprocess_out/` (`df_delivered.pkl`, `olist_preprocessed.csv`, `prep_log.csv`, `missing_before_after.csv`, `kpi_summary.csv`, `insights.txt`) và `preprocess_figs/` (11 ảnh PNG).
 
