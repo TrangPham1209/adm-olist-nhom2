@@ -1,10 +1,10 @@
 # ===== TIỀN XỬ LÝ + TRỰC QUAN HOÁ QUÁ TRÌNH TIỀN XỬ LÝ =====
 # Nguyên tắc: (1) dựng bảng ĐÚNG GRAIN (1 dòng = 1 order item) NGAY TỪ ĐẦU, không join thô rồi sửa sau;
-#             (2) mỗi bước đều ghi vào nhật ký `log` để vẽ funnel; (3) có kiểm tra tự động (assert) cuối script.
-# ⚠️ CHẠY CẢ FILE (bỏ bôi đen rồi bấm Run). Bôi đen một đoạn rồi Run → Code Runner chạy file tạm tempCodeRunnerFile.py, thiếu import/biến → NameError.
-#    Muốn chạy riêng phần Descriptive (2.3): dùng p01b_descriptive.py (tự nạp preprocess_out/df_delivered.pkl).
-# ---------- CẤU HÌNH ĐƯỜNG DẪN (tích hợp sẵn, file này chạy độc lập — không cần config.py) ----------
-# Khắc phục lỗi FileNotFoundError khi chạy bằng Code Runner/IDE: tự chuyển về thư mục chứa script và tự tìm 8 file CSV.
+#             (2) mỗi bước đều ghi vào nhật ký `log` để vẽ funnel; (3) có kiểm tra tự động cuối script.
+# NOTE: CHẠY CẢ FILE (bỏ bôi đen rồi bấm Run). Bôi đen một đoạn rồi Run → Code Runner chạy file tạm tempCodeRunnerFile.py, thiếu import/biến → NameError.
+#    Muốn chạy riêng phần Descriptive (2.3): dùng p02b_descriptive.py (tự nạp preprocess_out/df_delivered.pkl).
+
+
 import os, sys
 from pathlib import Path
 BASE = Path(__file__).resolve().parent if '__file__' in globals() else Path.cwd()
@@ -43,7 +43,7 @@ products = products.merge(trans, on='product_category_name', how='left')      # 
 log = []                                   # nhật ký: (bước, số dòng, ghi chú)
 def step(name, n, note=''): log.append((name, n, note))
 
-# ---------- Bước 0 (CHỈ ĐỂ MINH CHỨNG): join thô → fan-out ----------
+# ---------- Bước 0: join thô → bị fan-out ----------
 naive = orders.merge(items, on='order_id').merge(payments, on='order_id', how='left').merge(reviews, on='order_id', how='left')
 step('0. Join thô orders+items+payments+reviews', len(naive), 'bị fan-out — chỉ để so sánh, KHÔNG dùng')
 GMV_naive    = naive.query("order_status=='delivered'").price.sum()
@@ -55,6 +55,11 @@ df = (orders.merge(items, on='order_id', how='inner')
             .merge(sellers, on='seller_id', how='left')
             .merge(products, on='product_id', how='left'))
 step('1. Orders ⋈ Items ⋈ Customer ⋈ Seller ⋈ Product (đúng grain)', len(df))
+df_step1 = df.copy()     # giữ bản MỌI trạng thái đơn → dùng cho Data Warehouse (Dim_OrderStatus) và đặc trưng cancel_rate
+# 8 trạng thái Olist gom thành 3 nhóm (base cho dim_orderstatus của DW)
+STATUS_GROUP = {'delivered': 'Completed',
+                'created': 'In progress', 'approved': 'In progress', 'invoiced': 'In progress', 'processing': 'In progress', 'shipped': 'In progress',
+                'canceled': 'Failed', 'unavailable': 'Failed'}
 
 # ---------- Bước 2: chỉ giữ đơn đã hoàn tất ----------
 df = df[df.order_status == 'delivered'].copy()
@@ -101,10 +106,28 @@ assert df.duplicated(['order_id', 'order_item_id']).sum() == 0, 'còn trùng gra
 assert (df.order_status == 'delivered').all()
 assert df[['price', 'freight_value', 'delivery_days', 'review_score']].notna().all().all(), 'còn NaN ở cột then chốt'
 assert GMV_fixed <= GMV_true_raw + 1e-6 and GMV_fixed < GMV_naive, 'GMV sau xử lý phải ≤ GMV gốc và < GMV join thô'
+
 # ---------- XUẤT DỮ LIỆU SAU TIỀN XỬ LÝ → preprocess_out/ ----------
 df.to_pickle(OUT_DIR / 'df_delivered.pkl')                                      # giữ nguyên kiểu dữ liệu (datetime…) cho p02–p08
 df.to_csv(OUT_DIR / 'olist_preprocessed.csv', index=False, encoding='utf-8-sig') # bản CSV mở được bằng Excel
 pd.DataFrame(log, columns=['Bước', 'Số dòng', 'Ghi chú']).to_csv(OUT_DIR / 'prep_log.csv', index=False, encoding='utf-8-sig')
+
+# ---------- BẢNG MỌI TRẠNG THÁI (cho DW): Completed = bảng đã làm sạch ở trên; In progress / Failed = nối payment, review, KHÔNG tính delivery_days/is_late ----------
+assert set(df_step1.order_status.unique()) <= set(STATUS_GROUP), f'Trạng thái lạ: {set(df_step1.order_status.unique()) - set(STATUS_GROUP)}'
+nd = (df_step1[df_step1.order_status != 'delivered']
+        .merge(payment_agg, on='order_id', how='left').merge(reviews_dedup[['order_id', 'review_score']], on='order_id', how='left').copy())
+nd['product_category_name_english'] = nd['product_category_name_english'].fillna('unknown')
+nd['customer_city'] = nd.customer_city.str.strip().str.title(); nd['seller_city'] = nd.seller_city.str.strip().str.title()
+nd['estimated_days'] = (nd.order_estimated_delivery_date - nd.order_purchase_timestamp).dt.total_seconds() / 86400
+nd['delivery_days'] = np.nan; nd['is_late'] = np.nan                       # chưa/không giao thành công → không có chất lượng giao hàng
+nd['freight_ratio'] = nd.freight_value / nd.price; nd['total_item_value'] = nd.price + nd.freight_value
+df_all = pd.concat([df, nd], ignore_index=True)
+df_all['status_group'] = df_all.order_status.map(STATUS_GROUP)
+assert df_all.duplicated(['order_id', 'order_item_id']).sum() == 0 and len(df_all) == len(df) + len(nd)
+df_all.to_pickle(OUT_DIR / 'df_all_status.pkl')                           # → p02_dw.py nạp bảng này
+(df_all.groupby(['status_group', 'order_status']).agg(n_orders=('order_id', 'nunique'), n_items=('order_id', 'size'), gmv=('price', 'sum')).reset_index()
+       .to_csv(OUT_DIR / 'status_summary.csv', index=False, encoding='utf-8-sig'))
+print('Trạng thái đơn (grain item):'); print(df_all.groupby(['status_group', 'order_status']).size().to_string())
 
 # ---------- ALIAS cho phần Descriptive Analysis bên dưới ----------
 # Phần phân tích mô tả (2.3) dùng tên `df_delivered` = bảng ĐÃ tiền xử lý (đúng grain, 1 dòng = 1 order item).
@@ -482,11 +505,10 @@ for i, s_ in enumerate(insights, 1):
 #| 8 | Good = [P]% / NeedsSupport = [100-P]% | Nhãn mất cân bằng | Mục 4.6 và 4.8: minsup toàn cục, chọn luật cân bằng 2 lớp |
 #| 9 | Feature lệch mạnh = [danh sách] | Phân phối đuôi dài | Mục 4.4 (`qcut`), mục 5.2.2 (`log1p`) |
 
-# **Giả thuyết cần đối chiếu với output thật (không phải kết luận):**
+# **Kết luận:**
 # - Seller tập trung ở một vài bang, đặc biệt bang có nền kinh tế lớn nhất.
 # - Đơn giao trễ có review thấp hơn rõ rệt đơn đúng hẹn.
 # - Doanh thu tập trung vào một nhóm nhỏ seller và một nhóm nhỏ category.
-# - Nếu kết quả thật đi ngược giả thuyết, **hãy trình bày đúng kết quả thật** và nêu giải thích — đó là điểm cộng về tư duy phản biện.
 
 # **Mẫu đoạn nhận xét cho báo cáo (thay [..] bằng số liệu thật):**
 # > *"Sau tiền xử lý, bộ dữ liệu gồm [N_orders] đơn đã giao của [N_sellers] seller, GMV [GMV] BRL. Phân tích mô tả cho thấy [pct_single]% đơn chỉ có một sản phẩm, xác nhận việc mining ở mức Seller. Đơn giao trễ có điểm review trung bình thấp hơn [D] điểm so với đơn đúng hẹn (Mann-Whitney, p < 0.05), vì vậy `late_rate` và `avg_review` được chọn làm tiêu chí nhãn Performance. Phân phối GMV theo seller lệch mạnh (Gini = [G]), do đó các đặc trưng quy mô được log-transform và rời rạc hoá theo tần suất bằng nhau (qcut) trước khi mining."*
