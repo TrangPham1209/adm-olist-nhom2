@@ -1,0 +1,10 @@
+﻿Bảng,Số dòng,Số cột,Dòng trùng lặp,Tổng ô NaN,Số cột có NaN
+orders,99441,8,0,4908,3
+order_items,112650,7,0,0,0
+customers,99441,5,0,0,0
+sellers,3095,4,0,0,0
+products,32951,9,0,2448,8
+translations,71,2,0,0,0
+payments,103886,5,0,0,0
+reviews,99224,7,0,145903,2
+geo,1000163,5,261831,0,0

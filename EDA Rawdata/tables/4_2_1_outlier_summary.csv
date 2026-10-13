@@ -1,0 +1,4 @@
+﻿Biến,Ngưỡng dưới,Ngưỡng trên,Số lượng Outliers,Tỷ lệ Outliers (%)
+price,-101.5,275.57,8162,7.41
+freight_value,0.98,33.25,11811,10.72
+delivery_days,-6.47,28.75,5743,5.21

@@ -1,0 +1,6 @@
+﻿primary_payment_type,Frequency,Percentage (%),Cumulative %
+credit_card,84154,76.37,76.37
+boleto,22362,20.29,96.66
+voucher,2026,1.84,98.5
+debit_card,1652,1.5,100.0
+,3,0.0,100.0

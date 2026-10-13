@@ -1,0 +1,9 @@
+﻿Thuộc tính,Bảng gốc,Loại biến,Mô tả
+"order_id, customer_id, seller_id","orders, items, sellers",Nominal,Mã định danh duy nhất cho thực thể/phiên
+payment_type,order_payments,Nominal,Phương thức thanh toán
+order_status,orders,Ordinal,Tiến trình trạng thái đơn hàng
+review_score,order_reviews,Ordinal,Điểm mức độ hài lòng (1 đến 5 sao)
+"price, freight_value",order_items,Numeric,Giá bán sản phẩm và cước vận chuyển (BRL)
+payment_value,order_payments,Numeric,Tổng giá trị thanh toán thực tế của đơn hàng
+product_weight_g,products,Numeric,Trọng lượng thực tế của sản phẩm (gram)
+order_purchase_timestamp,orders,Datetime,Thời điểm khách hàng bấm đặt mua hàng

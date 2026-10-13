@@ -1,0 +1,10 @@
+﻿Bảng,Primary Key (PK),Foreign Key (FK),Đơn vị quan sát
+orders,order_id,customer_id,Đơn hàng (Order)
+order_items,"(order_id, order_item_id)","order_id, product_id, seller_id",Mặt hàng trong đơn (Item)
+payments,"(order_id, payment_sequential)",order_id,Lần thanh toán
+reviews,"(review_id, order_id)",order_id,Lượt đánh giá
+customers,customer_id,-,Phiên khách hàng
+products,product_id,product_category_name,Sản phẩm
+sellers,seller_id,-,Người bán
+geo,Tổ hợp tọa độ,-,Mã bưu cục
+translations,product_category_name,-,Danh mục
