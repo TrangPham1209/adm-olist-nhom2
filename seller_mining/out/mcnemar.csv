@@ -1,0 +1,7 @@
+model,so_sánh,b_chỉ_baseline_đúng,c_chỉ_luật_đúng,p_value
+LogReg,Không luật vs + 3 luật Apriori (CBA),4,6,0.7539
+LogReg,Không luật vs + 3 luật FP-Growth (CMAR),4,6,0.7539
+DecisionTree,Không luật vs + 3 luật Apriori (CBA),0,0,1.0
+DecisionTree,Không luật vs + 3 luật FP-Growth (CMAR),0,0,1.0
+RandomForest,Không luật vs + 3 luật Apriori (CBA),6,3,0.5078
+RandomForest,Không luật vs + 3 luật FP-Growth (CMAR),8,3,0.2266

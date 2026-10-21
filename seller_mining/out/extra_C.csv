@@ -1,0 +1,15 @@
+model,variant,accuracy,recall,f1,macro_f1,auc
+LogReg,3 item đơn theo χ² (không luật),0.7882,0.9537,0.8712,0.6368,0.7423
+LogReg,3 luật theo confidence,0.7882,0.9476,0.8704,0.6443,0.7486
+LogReg,3 luật theo leverage,0.7887,0.9498,0.871,0.6432,0.7414
+LogReg,3 luật theo lift,0.7882,0.9476,0.8704,0.6443,0.7486
+LogReg,3 luật theo support,0.7887,0.9498,0.871,0.6432,0.7416
+LogReg,3 luật theo wchi2,0.7874,0.9483,0.8701,0.6417,0.744
+LogReg,Không thêm gì (baseline),0.7858,0.9505,0.8695,0.6352,0.7426
+RandomForest,3 item đơn theo χ² (không luật),0.7887,0.9523,0.8712,0.6408,0.7261
+RandomForest,3 luật theo confidence,0.7866,0.9498,0.8697,0.6384,0.7278
+RandomForest,3 luật theo leverage,0.7863,0.9523,0.8699,0.6346,0.728
+RandomForest,3 luật theo lift,0.7866,0.9498,0.8697,0.6384,0.7278
+RandomForest,3 luật theo support,0.786,0.9519,0.8698,0.6344,0.7284
+RandomForest,3 luật theo wchi2,0.7866,0.9498,0.8698,0.6383,0.727
+RandomForest,Không thêm gì (baseline),0.7887,0.9534,0.8714,0.6393,0.7239

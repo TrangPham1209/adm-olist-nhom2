@@ -1,0 +1,10 @@
+feature,test,effect_rank_biserial,p_value
+n_orders,Mann-Whitney U,-0.022,5.57e-01
+total_sales,Mann-Whitney U,0.014,7.16e-01
+avg_price,Mann-Whitney U,-0.012,7.62e-01
+avg_delivery_days,Mann-Whitney U,0.431,6.98e-30
+late_rate,Mann-Whitney U,0.432,2.70e-30
+n_categories,Mann-Whitney U,-0.009,8.05e-01
+credit_card_share,Mann-Whitney U,-0.102,7.40e-03
+cross_region_share,Mann-Whitney U,-0.078,3.92e-02
+seller_region,Chi-square,,6.56e-02

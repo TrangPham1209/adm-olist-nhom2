@@ -1,0 +1,22 @@
+model,setting,accuracy,precision,recall,f1,macro_f1,recall_NeedsSupport,auc
+DecisionTree,0. Không luật (baseline),0.7796,0.8001,0.9422,0.8651,0.6291,0.289,0.6926
+DecisionTree,1. Baseline + Apriori+CBA,0.778,0.7988,0.9419,0.8641,0.6256,0.2836,0.6903
+DecisionTree,2. Baseline + FPGrowth+CMAR,0.7785,0.7996,0.9412,0.8643,0.6279,0.2879,0.6915
+DecisionTree,3. Baseline + ECLAT+leverage,0.7796,0.8001,0.9422,0.8651,0.6291,0.289,0.6927
+DecisionTree,4. Baseline + CHARM-closed (adv),0.7785,0.7996,0.9412,0.8643,0.6279,0.2879,0.6915
+DecisionTree,5. Chỉ 3 feature luật (Apriori),0.7626,0.7993,0.9135,0.8524,0.6214,0.3073,0.6484
+DecisionTree,6. Baseline + RuleScore (phương pháp mới),0.7782,0.8004,0.939,0.864,0.6297,0.2933,0.7058
+LogReg,0. Không luật (baseline),0.7858,0.8014,0.9505,0.8695,0.6352,0.289,0.7426
+LogReg,1. Baseline + Apriori+CBA,0.7885,0.8049,0.9483,0.8707,0.6441,0.3063,0.7494
+LogReg,2. Baseline + FPGrowth+CMAR,0.7874,0.8039,0.9483,0.8701,0.6417,0.302,0.744
+LogReg,3. Baseline + ECLAT+leverage,0.7887,0.8044,0.9498,0.871,0.6432,0.3031,0.7414
+LogReg,4. Baseline + CHARM-closed (adv),0.7879,0.8048,0.9476,0.8703,0.644,0.3063,0.7451
+LogReg,5. Chỉ 3 feature luật (Apriori),0.7626,0.7993,0.9135,0.8524,0.6214,0.3073,0.6484
+LogReg,6. Baseline + RuleScore (phương pháp mới),0.789,0.807,0.9454,0.8706,0.6484,0.3171,0.7441
+RandomForest,0. Không luật (baseline),0.7887,0.8025,0.9534,0.8714,0.6393,0.2922,0.7239
+RandomForest,1. Baseline + Apriori+CBA,0.7868,0.8032,0.9487,0.8698,0.6405,0.2987,0.7286
+RandomForest,2. Baseline + FPGrowth+CMAR,0.7866,0.8024,0.9498,0.8698,0.6383,0.2944,0.727
+RandomForest,3. Baseline + ECLAT+leverage,0.7863,0.8009,0.9523,0.8699,0.6346,0.2858,0.728
+RandomForest,4. Baseline + CHARM-closed (adv),0.7866,0.8013,0.9519,0.87,0.6358,0.2879,0.7255
+RandomForest,5. Chỉ 3 feature luật (Apriori),0.7626,0.7993,0.9135,0.8524,0.6214,0.3073,0.6485
+RandomForest,6. Baseline + RuleScore (phương pháp mới),0.7833,0.8054,0.9383,0.8666,0.6436,0.316,0.7214

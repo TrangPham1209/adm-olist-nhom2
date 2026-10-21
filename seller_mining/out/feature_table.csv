@@ -1,0 +1,11 @@
+feature,trạng thái,lý do,ghi chú
+n_orders,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,
+total_sales,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,có trong 3 luật chọn
+avg_price,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,
+avg_delivery_days,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,có trong 3 luật chọn
+late_rate,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,có trong 3 luật chọn
+n_categories,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,có trong 3 luật chọn
+avg_freight_ratio,LOẠI,tương quan cao với feature khác,
+credit_card_share,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,
+cross_region_share,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,có trong 3 luật chọn
+seller_region,GIỮ,xuất hiện trong ≥1 CAR có ý nghĩa,có trong 3 luật chọn

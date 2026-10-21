@@ -1,0 +1,13 @@
+﻿model,variant,metric,delta,wilcoxon_p,nadeau_bengio_p,wilcoxon_p_holm
+LogReg,+ 3 luật (minsup theo lớp),macro_f1,0.0015,0.2213,0.8964,1.0
+LogReg,+ 3 luật (minsup theo lớp),recall_NeedsSupport,0.0087,0.1675,0.5888,1.0
+LogReg,+ RuleScore (minsup theo lớp),macro_f1,0.0132,0.0067,0.1459,0.0739
+LogReg,+ RuleScore (minsup theo lớp),recall_NeedsSupport,0.0378,0.0036,0.0478,0.0429
+DecisionTree,+ 3 luật (minsup theo lớp),macro_f1,-0.0016,0.285,0.6332,1.0
+DecisionTree,+ 3 luật (minsup theo lớp),recall_NeedsSupport,-0.0022,0.4142,0.7182,1.0
+DecisionTree,+ RuleScore (minsup theo lớp),macro_f1,0.0014,0.9341,0.943,1.0
+DecisionTree,+ RuleScore (minsup theo lớp),recall_NeedsSupport,0.0042,0.7535,0.9109,1.0
+RandomForest,+ 3 luật (minsup theo lớp),macro_f1,-0.0002,0.9341,0.9842,1.0
+RandomForest,+ 3 luật (minsup theo lớp),recall_NeedsSupport,0.0053,0.5143,0.6933,1.0
+RandomForest,+ RuleScore (minsup theo lớp),macro_f1,-0.0025,0.804,0.8113,1.0
+RandomForest,+ RuleScore (minsup theo lớp),recall_NeedsSupport,0.0119,0.1251,0.4372,1.0
