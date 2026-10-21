@@ -118,11 +118,8 @@ pip install -r requirements.txt
 ### 4. Chạy file Python
 
 ```bash
-python ten_file.py
+p1_descriptive&eda.py
 ```
-
-Thay `ten_file.py` bằng tên file Python chính của project.
-
 ---
 
 ## Kết quả chính
