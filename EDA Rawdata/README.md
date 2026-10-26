@@ -1,141 +1,88 @@
-# Phân tích mô tả và thăm dò dữ liệu: Olist E-commerce Data Analysis
+# Olist E-commerce: Descriptive Analysis & EDA
 
-## Giới thiệu
-
-Phần 4.1, 4.2 dùng **Python** để phân tích bộ dữ liệu **Olist E-commerce Dataset**, tập trung vào dữ liệu đơn hàng, sản phẩm, thanh toán, vận chuyển và đánh giá của khách hàng.
-Mục tiêu chính là tìm hiểu cấu trúc và chất lượng dữ liệu, thực hiện **Descriptive Statistics** và **Exploratory Data Analysis (EDA)** để khám phá đặc điểm dữ liệu và mối quan hệ giữa các biến.
-
----
-
-## Analysis Map
-
-```text
-Raw Data (Olist)
-│
-├── Data Understanding
-│   ├── Attribute Classification
-│   ├── Schema Relationship
-│   └── Dataset Overview
-│
-├── Data Profiling
-│   ├── Missing Values
-│   ├── Duplicate Records
-│   └── Data Quality Assessment
-│
-├── Descriptive Statistics
-│   ├── Numerical Variables
-│   ├── Payment Types
-│   ├── Product Categories
-│   └── Order Status & Review Score
-│
-├── Exploratory Data Analysis (EDA)
-│   ├── Distribution Analysis
-│   │   ├── Histogram
-│   │   ├── KDE
-│   │   └── Boxplot
-│   │
-│   ├── Outlier Analysis
-│   │
-│   ├── Bivariate Analysis
-│   │   ├── Delivery Days vs Review Score
-│   │   ├── Price vs Freight Value
-│   │   └── Review by Payment Type
-│   │
-│   └── Correlation Analysis
-│       └── Spearman Correlation Matrix
-│
-└── Findings & Discussion
-```
-
----
-
-## Dataset
-
-Bộ dữ liệu Olist gồm **9 bảng**:
-
-- Orders
-- Order Items
-- Customers
-- Sellers
-- Products
-- Payments
-- Reviews
-- Geolocation
-- Product Category Translation
-
-Các bảng được liên kết thông qua các khóa như `order_id`, `customer_id`, `product_id` và `seller_id`. 【1-fde208】
-
----
+Dự án thực hiện thống kê mô tả và khám phá dữ liệu trên bộ **Brazilian E-Commerce Public Dataset by Olist**.
 
 ## Nội dung phân tích
 
-Project thực hiện các bước chính:
+1. Đọc và chuẩn hóa 9 bảng dữ liệu CSV.
+2. Mô tả cấu trúc, khóa và đơn vị quan sát.
+3. Phân loại thuộc tính.
+4. Kiểm tra dữ liệu khuyết và dòng trùng lặp.
+5. Tạo Master DataFrame ở cấp độ mặt hàng.
+6. Thống kê mô tả biến định lượng và định tính.
+7. Phân tích phân phối đơn biến.
+8. Phát hiện ngoại lệ theo quy tắc 1,5 × IQR.
+9. Phân tích mối quan hệ hai biến.
+10. Phân tích tương quan hạng Spearman.
 
-- Khảo sát cấu trúc dữ liệu
-- Kiểm tra missing values và duplicate records
-- Đánh giá chất lượng dữ liệu
-- Thống kê mô tả các biến
-- Phân tích phân phối bằng Histogram, KDE và Boxplot
-- Phát hiện giá trị ngoại lệ bằng IQR
-- Phân tích mối quan hệ giữa các biến
-- Phân tích tương quan Spearman
-- Trực quan hóa và tổng hợp kết quả
+## Cấu trúc thư mục
 
----
-
-## Công nghệ sử dụng
-
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- SciPy
-
----
-
-## Cách chạy project
-
-### 1. Clone repository
-
-```bash
-git clone <repository-url>
-cd <project-folder>
+```text
+olist-descriptive-eda/
+├── data/
+│   ├── olist_orders_dataset.csv
+│   ├── olist_order_items_dataset.csv
+│   ├── olist_customers_dataset.csv
+│   ├── olist_sellers_dataset.csv
+│   ├── olist_products_dataset.csv
+│   ├── product_category_name_translation.csv
+│   ├── olist_order_payments_dataset.csv
+│   ├── olist_order_reviews_dataset.csv
+│   └── olist_geolocation_dataset.csv
+├── 01_eda_output/
+│   ├── figures/
+│   └── tables/
+├── p1_descriptive_eda.ipynb
+├── requirements.txt
+├── .gitignore
+└── README.md
 ```
 
-### 2. Cài đặt các thư viện cần thiết
+## Chuẩn bị dữ liệu
 
-Nếu project có file `requirements.txt`:
+Tải bộ dữ liệu Olist từ nguồn được phép sử dụng, sau đó đặt đúng 9 tệp CSV vào thư mục `data/` theo tên trong cấu trúc trên.
 
-```bash
-pip install -r requirements.txt
-```
+> Gói GitHub-ready này không đính kèm dữ liệu gốc. Cách này giúp repository nhẹ hơn và tránh phân phối lại dữ liệu khi chưa kiểm tra điều khoản của nguồn.
 
-### 3. Chuẩn bị dữ liệu
+## Cài đặt
 
-Đặt các file `.csv` của **Olist E-commerce Dataset** vào thư mục dữ liệu được sử dụng trong project.
-
-### 4. Chạy file Python
+Yêu cầu Python 3.10 trở lên.
 
 ```bash
-p1_descriptive&eda.py
+python -m venv .venv
 ```
----
 
-## Kết quả chính
+Kích hoạt môi trường trên Windows:
 
-Một số kết quả nổi bật từ quá trình phân tích:
+```bash
+.venv\Scripts\activate
+```
 
-- Phần lớn đơn hàng có trạng thái `delivered`.
-- Đánh giá 5 sao chiếm tỷ lệ cao nhất.
-- `price`, `freight_value` và `delivery_days` có phân phối lệch phải.
-- Dữ liệu có các giá trị nằm ngoài ngưỡng IQR.
-- `price` và `total_payment` có tương quan dương mạnh.
-- `delivery_days` có xu hướng tương quan âm với `review_score`. 【1-fde208】
+Kích hoạt môi trường trên macOS/Linux:
 
----
+```bash
+source .venv/bin/activate
+```
 
-## Ghi chú
+Cài các thư viện:
 
-Project được thực hiện phục vụ mục đích **học tập và phân tích dữ liệu**.
-Các giá trị ngoại lệ được xác định bằng phương pháp IQR và không mặc định được xem là lỗi dữ liệu.
+```bash
+python -m pip install -r requirements.txt
+```
+
+## Chạy notebook
+
+```bash
+jupyter notebook p1_descriptive_eda.ipynb
+```
+
+Sau đó chọn **Run All**. Notebook đọc dữ liệu từ `./data` và tự động tạo kết quả tại:
+
+- `01_eda_output/figures`: biểu đồ PNG.
+- `01_eda_output/tables`: bảng kết quả CSV.
+
+## Lưu ý khi đưa lên GitHub
+
+- `.gitignore` mặc định không đưa dữ liệu CSV và output được tạo tự động lên GitHub.
+- Nếu cần công khai các bảng kết quả hoặc biểu đồ để minh họa, sửa `.gitignore` rồi chọn lọc tệp cần commit.
+- Không đổi tên 9 tệp CSV nếu chưa cập nhật dictionary `raw_files` trong notebook.
