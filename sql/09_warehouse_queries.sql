@@ -29,7 +29,8 @@
 -- =============================================================================
 SELECT
     quarter_key,
-    quarter_label,
+    CONCAT(CAST(DIV(quarter_key, 10) AS STRING), ' Q',
+           CAST(MOD(quarter_key, 10) AS STRING))          AS quarter_label,
     COUNT(*)                                              AS so_dong_hang,
     COUNT(DISTINCT order_id)                              AS so_don,
     ROUND(SUM(price), 2)                                  AS gmv,
@@ -50,11 +51,12 @@ ORDER BY quarter_key;
 -- =============================================================================
 SELECT
     quarter_key,
-    quarter_label,
+    CONCAT(CAST(DIV(quarter_key, 10) AS STRING), ' Q',
+           CAST(MOD(quarter_key, 10) AS STRING)) AS quarter_label,
     seller_region,
     category_en,
-    COUNT(DISTINCT order_id) AS so_don,
-    ROUND(SUM(price), 2)     AS gmv
+    COUNT(DISTINCT order_id)                     AS so_don,
+    ROUND(SUM(price), 2)                         AS gmv
 FROM `adm-project-olist.olist_dw.v_olap`
 GROUP BY quarter_key, quarter_label, seller_region, category_en
 ORDER BY quarter_key, gmv DESC;
@@ -80,7 +82,6 @@ FROM `adm-project-olist.olist_dw.v_olap`
 GROUP BY cust_region, category_en
 HAVING COUNT(DISTINCT order_id) >= 200
 ORDER BY diem_danh_gia ASC;
-
 
 -- =============================================================================
 -- Q4. Mức tập trung ngành hàng và trải nghiệm khách hàng
