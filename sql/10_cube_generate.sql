@@ -14,7 +14,7 @@
 -- PHẦN 7  Truy vấn minh hoạ sáu toán tử OLAP
 -- PHẦN 8  Kiểm tra nhất quán của file này
 --
--- Thứ tự chạy: 10 (PHẦN 0-3) -> 09 -> 10 (PHẦN 4-8) -> 10a
+-- Thứ tự chạy: 10 (PHẦN 0-3) -> 10 (PHẦN 4-8) -> 10a -> 09
 -- Bảng và khối mức người bán nằm ở file 10a, toán tử join cũng vậy,
 -- vì join nối cube_category_seller với cube_quality.
 --
