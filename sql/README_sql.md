@@ -25,9 +25,9 @@ Thứ tự chạy:
 | Bước | File | Nội dung |
 |---|---|---|
 | 1 | `10` PHẦN 0–3 | Kiểm tra bảng chiều và bảng sự kiện đã có, dựng `v_olap_all`, `v_olap` |
-| 2 | `09` | 4 truy vấn kho. Chỉ đọc, bỏ qua được |
-| 3 | `10` PHẦN 4–8 | Khối dữ liệu, truy vấn minh hoạ, kiểm tra |
-| 4 | `10a` | Bảng và khối mức người bán, truy vấn join, kiểm tra chéo |
+| 2 | `10` PHẦN 4–8 | Khối dữ liệu, truy vấn minh hoạ, kiểm tra |
+| 3 | `10a` | Bảng và khối mức người bán, truy vấn join, kiểm tra chéo |
+| 4 | `09` | 4 truy vấn kho. Đọc dữ liệu theo câu hỏi kinh doanh |
 
 Sửa `v_olap_all` hoặc `v_olap` → chạy lại cả `10` và `10a`, vì khối dữ liệu là bảng vật lý.
 
