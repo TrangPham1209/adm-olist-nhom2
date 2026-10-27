@@ -4,7 +4,7 @@
    Nguồn      : adm-project-olist.olist_dw.v_olap
    Toán tử    : GROUP BY thường. Không ROLLUP / CUBE / GROUPING SETS.
    Tác động   : chỉ đọc, không tạo bảng.
-   Thứ tự chạy: 10 (phần kho) -> 09 -> 10 (phần cube) -> 10a
+   Thứ tự chạy: 10 (phần kho) -> 10 (phần cube) -> 10a -> 09
 
    Mỗi truy vấn ở đây là phiên bản MỘT CẤP TỔNG HỢP của một khối dữ liệu.
    Khối dữ liệu tương ứng giữ nguyên các cột đó và bổ sung các cấp còn lại.
